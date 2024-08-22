@@ -1,0 +1,143 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Health Records Backend Services",
+		"version": "1.0.0",
+		"description": "API for managing health records, including creating and retrieving records."
+	},
+	"servers": [
+		{
+			"url": "http://localhost:5000/api",
+			"description": "Development server"
+		}
+	],
+	"paths": {
+		"/health-records": {
+			"post": {
+				"summary": "Create a new health record",
+				"description": "Adds a new health record with details such as date, steps, and hours of sleep.",
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"date": {
+										"type": "string",
+										"format": "date",
+										"example": "2024-08-26"
+									},
+									"steps": {
+										"type": "number",
+										"example": 10000
+									},
+									"hoursOfSleep": {
+										"type": "number",
+										"example": 7.5
+									}
+								},
+								"required": ["date", "steps", "hoursOfSleep"]
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Health record created successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HealthRecord"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string",
+											"example": "Error creating health record"
+										},
+										"error": {
+											"type": "object"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"summary": "Get all health records",
+				"description": "Retrieves a list of all health records.",
+				"responses": {
+					"200": {
+						"description": "A list of health records",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/HealthRecord"
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string",
+											"example": "Error fetching health records"
+										},
+										"error": {
+											"type": "object"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"HealthRecord": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"example": "6123c34e2f8fb814b56c3f6c"
+					},
+					"date": {
+						"type": "string",
+						"format": "date",
+						"example": "2024-08-26"
+					},
+					"steps": {
+						"type": "number",
+						"example": 10000
+					},
+					"hoursOfSleep": {
+						"type": "number",
+						"example": 7.5
+					}
+				}
+			}
+		}
+	}
+}

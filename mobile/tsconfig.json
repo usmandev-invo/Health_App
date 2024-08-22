@@ -1,0 +1,14 @@
+{
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@constants": ["./src/constants/"],
+      "@typings/*": ["./src/typings/*"],
+      "@screens/*": ["./src/screens/*"],
+      "@services/*": ["./src/services/*"],
+      "@theme": ["./src/theme/index.ts"],
+    }
+  },
+  "include": ["src", "env.d.ts"]
+}
